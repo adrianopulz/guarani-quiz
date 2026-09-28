@@ -7,7 +7,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="images/icon-192.png">
-    <link rel="apple-touch-icon" href="images/icon-192.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Ñañe'ẽ guaraníme</title>
     <style>
@@ -80,7 +80,7 @@
 
       /* Inicio */
       #nanduti {
-        width: min(58vh, 72vw);
+        width: min(46vh, 64vw);
         height: auto;
         flex-shrink: 1;
       }
@@ -116,6 +116,22 @@
         50% {
           transform: scale(1.06);
         }
+      }
+
+      .logo {
+        background: #fff;
+        border-radius: 16px;
+        padding: 8px 14px;
+        box-shadow: 0 6px 0 rgba(0, 0, 0, 0.25);
+        flex-shrink: 0;
+      }
+      .logo img {
+        display: block;
+        height: clamp(56px, 10vh, 96px);
+        width: auto;
+      }
+      #s-final .logo img {
+        height: clamp(44px, 7vh, 72px);
       }
 
       /* Intro */
@@ -342,7 +358,7 @@
         margin-top: 0.2em;
       }
       #mini {
-        width: min(22vh, 34vw);
+        width: min(16vh, 28vw);
       }
       canvas#conf {
         position: fixed;
@@ -357,6 +373,10 @@
         }
         .op {
           padding: 12px;
+        }
+        .logo img,
+        #s-final .logo img {
+          height: 40px;
         }
       }
       @media (prefers-reduced-motion: reduce) {
@@ -375,6 +395,7 @@
       <h1>Ñañe'ẽ guaraníme</h1>
       <p class="sub">¡Hablemos en guaraní!</p>
       <button class="toca" id="jugar">Tocá para jugar</button>
+      <div class="logo"><img src="images/logo-juan-crop.jpg" alt="Colegio Privado Juan XXIII"></div>
     </section>
 
     <!-- INTRO -->
@@ -427,6 +448,7 @@
       <div class="premio" id="f-premio">🎁 ¡Ganaste un premio!<small>Pedíselo a la expositora</small></div>
       <button class="btn amarillo" id="otra">Jugar otra vez</button>
       <button class="btn" id="volver">Volver al inicio</button>
+      <div class="logo"><img src="images/logo-juan-crop.jpg" alt="Colegio Privado Juan XXIII"></div>
     </section>
 
     <canvas id="conf"></canvas>
