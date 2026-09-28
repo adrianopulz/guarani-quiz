@@ -1,371 +1,791 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-<meta name="theme-color" content="#0E5E52">
-<meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.json">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Ñañe'ẽ guaraníme</title>
-<style>
-:root{
-  --monte:#0E5E52; --monte-osc:#093F37; --sol:#F4C132; --rosa:#E8457A;
-  --agua:#7FD6CB; --tinta:#14231F; --ok:#2FB36B; --mal:#D93A30;
-  color-scheme:light;
-}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
-body{
-  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif;
-  background:radial-gradient(circle at 50% 30%, #12705F 0%, var(--monte) 45%, var(--monte-osc) 100%);
-  color:#fff; overflow:hidden; user-select:none; -webkit-user-select:none; touch-action:manipulation;
-}
-.screen{
-  position:fixed; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center;
-  padding:calc(env(safe-area-inset-top,0px) + 3vh) 5vw calc(env(safe-area-inset-bottom,0px) + 3vh);
-  text-align:center; gap:2.2vh;
-}
-.screen.on{display:flex}
-button{font:inherit; border:0; cursor:pointer; color:inherit}
-button:focus-visible{outline:4px solid var(--sol); outline-offset:4px}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#0E5E52">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Ñañe'ẽ guaraníme</title>
+    <style>
+      :root {
+        --monte: #0e5e52;
+        --monte-osc: #093f37;
+        --sol: #f4c132;
+        --rosa: #e8457a;
+        --agua: #7fd6cb;
+        --tinta: #14231f;
+        --ok: #2fb36b;
+        --mal: #d93a30;
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          "Noto Sans",
+          sans-serif;
+        background: radial-gradient(
+          circle at 50% 30%,
+          #12705f 0%,
+          var(--monte) 45%,
+          var(--monte-osc) 100%
+        );
+        color: #fff;
+        overflow: hidden;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+      .screen {
+        position: fixed;
+        inset: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: calc(env(safe-area-inset-top, 0px) + 3vh) 5vw
+          calc(env(safe-area-inset-bottom, 0px) + 3vh);
+        text-align: center;
+        gap: 2.2vh;
+      }
+      .screen.on {
+        display: flex;
+      }
+      button {
+        font: inherit;
+        border: 0;
+        cursor: pointer;
+        color: inherit;
+      }
+      button:focus-visible {
+        outline: 4px solid var(--sol);
+        outline-offset: 4px;
+      }
 
-/* Inicio */
-#nanduti{width:min(58vh,72vw); height:auto; flex-shrink:1}
-#s-inicio #nanduti{animation:gira 90s linear infinite}
-@keyframes gira{to{transform:rotate(360deg)}}
-h1{font-size:clamp(2.4rem,8vw,5.2rem); font-weight:900; letter-spacing:-.02em; line-height:1}
-.sub{font-size:clamp(1.1rem,3vw,1.7rem); opacity:.9}
-.toca{
-  margin-top:1vh; background:var(--sol); color:var(--tinta); font-weight:800;
-  font-size:clamp(1.3rem,3.6vw,2rem); padding:.7em 1.6em; border-radius:999px;
-  animation:late 1.6s ease-in-out infinite;
-}
-@keyframes late{50%{transform:scale(1.06)}}
+      /* Inicio */
+      #nanduti {
+        width: min(58vh, 72vw);
+        height: auto;
+        flex-shrink: 1;
+      }
+      #s-inicio #nanduti {
+        animation: gira 90s linear infinite;
+      }
+      @keyframes gira {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      h1 {
+        font-size: clamp(2.4rem, 8vw, 5.2rem);
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .sub {
+        font-size: clamp(1.1rem, 3vw, 1.7rem);
+        opacity: 0.9;
+      }
+      .toca {
+        margin-top: 1vh;
+        background: var(--sol);
+        color: var(--tinta);
+        font-weight: 800;
+        font-size: clamp(1.3rem, 3.6vw, 2rem);
+        padding: 0.7em 1.6em;
+        border-radius: 999px;
+        animation: late 1.6s ease-in-out infinite;
+      }
+      @keyframes late {
+        50% {
+          transform: scale(1.06);
+        }
+      }
 
-/* Intro */
-.slide{max-width:34em; display:none; flex-direction:column; gap:2vh; align-items:center}
-.slide.on{display:flex}
-.slide .big{font-size:clamp(4rem,14vh,8rem); line-height:1}
-.slide h2{font-size:clamp(1.8rem,5vw,3rem); font-weight:900; line-height:1.1}
-.slide p{font-size:clamp(1.15rem,3vw,1.7rem); line-height:1.45; opacity:.95}
-.slide b{color:var(--sol)}
-.puntos{display:flex; gap:10px}
-.puntos i{width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,.3)}
-.puntos i.on{background:var(--sol)}
-.btn{
-  background:#fff; color:var(--tinta); font-weight:800; font-size:clamp(1.2rem,3.2vw,1.8rem);
-  padding:.65em 1.8em; border-radius:18px; box-shadow:0 6px 0 rgba(0,0,0,.25);
-}
-.btn:active{transform:translateY(4px); box-shadow:0 2px 0 rgba(0,0,0,.25)}
-.btn.amarillo{background:var(--sol)}
-.saltar{position:fixed; top:calc(env(safe-area-inset-top,0px) + 16px); right:20px; background:transparent;
-  font-size:1.1rem; opacity:.75; padding:10px 14px; text-decoration:underline}
+      /* Intro */
+      .slide {
+        max-width: 34em;
+        display: none;
+        flex-direction: column;
+        gap: 2vh;
+        align-items: center;
+      }
+      .slide.on {
+        display: flex;
+      }
+      .slide .big {
+        font-size: clamp(4rem, 14vh, 8rem);
+        line-height: 1;
+      }
+      .slide h2 {
+        font-size: clamp(1.8rem, 5vw, 3rem);
+        font-weight: 900;
+        line-height: 1.1;
+      }
+      .slide p {
+        font-size: clamp(1.15rem, 3vw, 1.7rem);
+        line-height: 1.45;
+        opacity: 0.95;
+      }
+      .slide b {
+        color: var(--sol);
+      }
+      .puntos {
+        display: flex;
+        gap: 10px;
+      }
+      .puntos i {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+      }
+      .puntos i.on {
+        background: var(--sol);
+      }
+      .btn {
+        background: #fff;
+        color: var(--tinta);
+        font-weight: 800;
+        font-size: clamp(1.2rem, 3.2vw, 1.8rem);
+        padding: 0.65em 1.8em;
+        border-radius: 18px;
+        box-shadow: 0 6px 0 rgba(0, 0, 0, 0.25);
+      }
+      .btn:active {
+        transform: translateY(4px);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+      }
+      .btn.amarillo {
+        background: var(--sol);
+      }
+      .saltar {
+        position: fixed;
+        top: calc(env(safe-area-inset-top, 0px) + 16px);
+        right: 20px;
+        background: transparent;
+        font-size: 1.1rem;
+        opacity: 0.75;
+        padding: 10px 14px;
+        text-decoration: underline;
+      }
 
-/* Quiz */
-#s-quiz{justify-content:space-between}
-.progreso{display:flex; gap:10px; align-items:center; font-size:clamp(1rem,2.4vw,1.3rem); opacity:.9}
-.progreso .bar{display:flex; gap:8px}
-.progreso .bar i{width:clamp(28px,6vw,52px); height:10px; border-radius:5px; background:rgba(255,255,255,.25)}
-.progreso .bar i.ok{background:var(--ok)} .progreso .bar i.mal{background:var(--mal)} .progreso .bar i.act{background:#fff}
-.pregunta{display:flex; flex-direction:column; align-items:center; gap:1.5vh}
-.emoji{font-size:clamp(4.5rem,17vh,9rem); line-height:1}
-.q{font-size:clamp(1.6rem,4.6vw,2.8rem); font-weight:800; line-height:1.2; max-width:22em}
-.q em{font-style:normal; color:var(--sol)}
-.opciones{display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,22px); width:min(100%,900px)}
-.op{
-  background:#fff; color:var(--tinta); font-weight:800; font-size:clamp(1.4rem,4vw,2.4rem);
-  padding:clamp(18px,3.4vh,34px) 12px; border-radius:22px; box-shadow:0 7px 0 rgba(0,0,0,.25);
-  transition:background .15s, transform .1s; word-break:break-word;
-}
-.op:active{transform:translateY(4px)}
-.op.ok{background:var(--ok); color:#fff}
-.op.mal{background:var(--mal); color:#fff; animation:no .35s}
-.op.apagado{opacity:.45}
-@keyframes no{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
-.feedback{min-height:2.4em; font-size:clamp(1.2rem,3.2vw,1.8rem); font-weight:700}
+      /* Quiz */
+      #s-quiz {
+        justify-content: space-between;
+      }
+      .progreso {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: clamp(1rem, 2.4vw, 1.3rem);
+        opacity: 0.9;
+      }
+      .progreso .bar {
+        display: flex;
+        gap: 8px;
+      }
+      .progreso .bar i {
+        width: clamp(28px, 6vw, 52px);
+        height: 10px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .progreso .bar i.ok {
+        background: var(--ok);
+      }
+      .progreso .bar i.mal {
+        background: var(--mal);
+      }
+      .progreso .bar i.act {
+        background: #fff;
+      }
+      .pregunta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5vh;
+      }
+      .emoji {
+        font-size: clamp(4.5rem, 17vh, 9rem);
+        line-height: 1;
+      }
+      .q {
+        font-size: clamp(1.6rem, 4.6vw, 2.8rem);
+        font-weight: 800;
+        line-height: 1.2;
+        max-width: 22em;
+      }
+      .q em {
+        font-style: normal;
+        color: var(--sol);
+      }
+      .opciones {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(12px, 2vw, 22px);
+        width: min(100%, 900px);
+      }
+      .op {
+        background: #fff;
+        color: var(--tinta);
+        font-weight: 800;
+        font-size: clamp(1.4rem, 4vw, 2.4rem);
+        padding: clamp(18px, 3.4vh, 34px) 12px;
+        border-radius: 22px;
+        box-shadow: 0 7px 0 rgba(0, 0, 0, 0.25);
+        transition:
+          background 0.15s,
+          transform 0.1s;
+        word-break: break-word;
+      }
+      .op:active {
+        transform: translateY(4px);
+      }
+      .op.ok {
+        background: var(--ok);
+        color: #fff;
+      }
+      .op.mal {
+        background: var(--mal);
+        color: #fff;
+        animation: no 0.35s;
+      }
+      .op.apagado {
+        opacity: 0.45;
+      }
+      @keyframes no {
+        25% {
+          transform: translateX(-10px);
+        }
+        75% {
+          transform: translateX(10px);
+        }
+      }
+      .feedback {
+        min-height: 2.4em;
+        font-size: clamp(1.2rem, 3.2vw, 1.8rem);
+        font-weight: 700;
+      }
 
-/* Resultado */
-#s-final .titulo{font-size:clamp(3rem,10vw,6rem); font-weight:900; line-height:1; color:var(--sol)}
-#s-final .trad{font-size:clamp(1.3rem,3.4vw,2rem); opacity:.9; font-style:italic}
-#s-final .score{font-size:clamp(1.4rem,3.6vw,2.2rem); font-weight:700}
-.premio{background:#fff; color:var(--tinta); border-radius:24px; padding:.8em 1.4em;
-  font-size:clamp(1.4rem,3.8vw,2.3rem); font-weight:900; box-shadow:0 8px 0 rgba(0,0,0,.25)}
-.premio small{display:block; font-size:.6em; font-weight:600; opacity:.8; margin-top:.2em}
-#mini{width:min(22vh,34vw)}
-canvas#conf{position:fixed; inset:0; pointer-events:none; z-index:10}
+      /* Resultado */
+      #s-final .titulo {
+        font-size: clamp(3rem, 10vw, 6rem);
+        font-weight: 900;
+        line-height: 1;
+        color: var(--sol);
+      }
+      #s-final .trad {
+        font-size: clamp(1.3rem, 3.4vw, 2rem);
+        opacity: 0.9;
+        font-style: italic;
+      }
+      #s-final .score {
+        font-size: clamp(1.4rem, 3.6vw, 2.2rem);
+        font-weight: 700;
+      }
+      .premio {
+        background: #fff;
+        color: var(--tinta);
+        border-radius: 24px;
+        padding: 0.8em 1.4em;
+        font-size: clamp(1.4rem, 3.8vw, 2.3rem);
+        font-weight: 900;
+        box-shadow: 0 8px 0 rgba(0, 0, 0, 0.25);
+      }
+      .premio small {
+        display: block;
+        font-size: 0.6em;
+        font-weight: 600;
+        opacity: 0.8;
+        margin-top: 0.2em;
+      }
+      #mini {
+        width: min(22vh, 34vw);
+      }
+      canvas#conf {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 10;
+      }
 
-@media (orientation:landscape) and (max-height:560px){
-  .emoji{font-size:3.5rem} .op{padding:12px}
-}
-@media (prefers-reduced-motion:reduce){
-  #s-inicio #nanduti,.toca{animation:none}
-}
-</style>
-</head>
-<body>
+      @media (orientation: landscape) and (max-height: 560px) {
+        .emoji {
+          font-size: 3.5rem;
+        }
+        .op {
+          padding: 12px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #s-inicio #nanduti,
+        .toca {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
 
-<!-- INICIO -->
-<section class="screen on" id="s-inicio" role="button" aria-label="Tocá para jugar">
-  <svg id="nanduti" viewBox="0 0 400 400" aria-hidden="true"></svg>
-  <h1>Ñañe'ẽ guaraníme</h1>
-  <p class="sub">¡Hablemos en guaraní!</p>
-  <div class="toca">Tocá para jugar</div>
-</section>
+    <!-- INICIO -->
+    <section class="screen on" id="s-inicio" role="button" aria-label="Tocá para jugar">
+      <svg id="nanduti" viewBox="0 0 400 400" aria-hidden="true"></svg>
+      <h1>Ñañe'ẽ guaraníme</h1>
+      <p class="sub">¡Hablemos en guaraní!</p>
+      <div class="toca">Tocá para jugar</div>
+    </section>
 
-<!-- INTRO -->
-<section class="screen" id="s-intro">
-  <button class="saltar" id="saltar">Ir al juego</button>
-  <div class="slide on">
-    <div class="big">🇵🇾</div>
-    <h2>Un idioma oficial</h2>
-    <p>El guaraní es idioma oficial del Paraguay junto con el castellano, desde la Constitución de 1992. <b>La mayoría de los paraguayos lo habla.</b></p>
-  </div>
-  <div class="slide">
-    <div class="big">🌳</div>
-    <h2>Un idioma muy antiguo</h2>
-    <p>Lo hablaban los pueblos guaraníes que vivían en esta región mucho antes de la llegada de los españoles. Hoy también es <b>idioma oficial del Mercosur</b>.</p>
-  </div>
-  <div class="slide">
-    <div class="big">🐆</div>
-    <h2>¡Ya sabés guaraní!</h2>
-    <p>Palabras como <b>jaguar, ananá, ñandú, tucán, maracuyá, mandioca</b> y <b>capibara</b> vienen del guaraní o del tupí.</p>
-  </div>
-  <div class="slide">
-    <div class="big">🎁</div>
-    <h2>¿Cuánto sabés?</h2>
-    <p>Respondé <b>5 preguntas</b>. Si acertás <b>4 o más</b>, ¡ganás un premio!</p>
-  </div>
-  <div class="puntos" id="puntos"><i class="on"></i><i></i><i></i><i></i></div>
-  <button class="btn" id="sig">Siguiente</button>
-</section>
+    <!-- INTRO -->
+    <section class="screen" id="s-intro">
+      <button class="saltar" id="saltar">Ir al juego</button>
+      <div class="slide on">
+        <div class="big">🇵🇾</div>
+        <h2>Un idioma oficial</h2>
+        <p>El guaraní es idioma oficial del Paraguay junto con el castellano, desde la Constitución de 1992. <b>La mayoría de los paraguayos lo habla.</b></p>
+      </div>
+      <div class="slide">
+        <div class="big">🌳</div>
+        <h2>Un idioma muy antiguo</h2>
+        <p>Lo hablaban los pueblos guaraníes que vivían en esta región mucho antes de la llegada de los españoles. Hoy también es <b>idioma oficial del Mercosur</b>.</p>
+      </div>
+      <div class="slide">
+        <div class="big">🐆</div>
+        <h2>¡Ya sabés guaraní!</h2>
+        <p>Palabras como <b>jaguar, ananá, ñandú, tucán, maracuyá, mandioca</b> y <b>capibara</b> vienen del guaraní o del tupí.</p>
+      </div>
+      <div class="slide">
+        <div class="big">🎁</div>
+        <h2>¿Cuánto sabés?</h2>
+        <p>Respondé <b>5 preguntas</b>. Si acertás <b>4 o más</b>, ¡ganás un premio!</p>
+      </div>
+      <div class="puntos" id="puntos"><i class="on"></i><i></i><i></i><i></i></div>
+      <button class="btn" id="sig">Siguiente</button>
+    </section>
 
-<!-- QUIZ -->
-<section class="screen" id="s-quiz">
-  <div class="progreso"><span id="num">Pregunta 1 de 5</span><div class="bar" id="bar"></div></div>
-  <div class="pregunta">
-    <div class="emoji" id="emoji">🐕</div>
-    <div class="q" id="q"></div>
-  </div>
-  <div class="opciones" id="opciones"></div>
-  <div class="feedback" id="feedback"></div>
-</section>
+    <!-- QUIZ -->
+    <section class="screen" id="s-quiz">
+      <div class="progreso"><span id="num">Pregunta 1 de 5</span><div class="bar" id="bar"></div></div>
+      <div class="pregunta">
+        <div class="emoji" id="emoji">🐕</div>
+        <div class="q" id="q"></div>
+      </div>
+      <div class="opciones" id="opciones"></div>
+      <div class="feedback" id="feedback"></div>
+    </section>
 
-<!-- FINAL -->
-<section class="screen" id="s-final">
-  <svg id="mini" viewBox="0 0 400 400" aria-hidden="true"></svg>
-  <div class="titulo" id="f-titulo"></div>
-  <div class="trad" id="f-trad"></div>
-  <div class="score" id="f-score"></div>
-  <div class="premio" id="f-premio">🎁 ¡Ganaste un premio!<small>Pedíselo a la expositora</small></div>
-  <button class="btn amarillo" id="otra">Jugar otra vez</button>
-</section>
+    <!-- FINAL -->
+    <section class="screen" id="s-final">
+      <svg id="mini" viewBox="0 0 400 400" aria-hidden="true"></svg>
+      <div class="titulo" id="f-titulo"></div>
+      <div class="trad" id="f-trad"></div>
+      <div class="score" id="f-score"></div>
+      <div class="premio" id="f-premio">🎁 ¡Ganaste un premio!<small>Pedíselo a la expositora</small></div>
+      <button class="btn amarillo" id="otra">Jugar otra vez</button>
+    </section>
 
-<canvas id="conf"></canvas>
+    <canvas id="conf"></canvas>
 
-<script>
-/* ===== Palabras: [español, guaraní, emoji, pregunta personalizada opcional] ===== */
-const DATA = {
-  saludos: [
-    ["gracias","Aguyje","🙏"],
-    ["¿cómo estás?","Mba'éichapa","👋","¿Cómo se pregunta <em>«¿cómo estás?»</em> en guaraní?"],
-    ["nos vemos","Jajotopata","🤗"],
-    ["bienvenido","Tereguahẽporãite","🎉"],
-    ["sí","Heẽ","👍"],
-    ["no","Nahániri","👎"],
-    ["muy bien","Iporãite","🌟"]
-  ],
-  animales: [
-    ["perro","Jagua","🐕"], ["gato","Mbarakaja","🐈"], ["pájaro","Guyra","🐦"],
-    ["jaguar","Jaguarete","🐆"], ["mono","Ka'i","🐒"], ["caballo","Kavaju","🐎"]
-  ],
-  naturaleza: [
-    ["sol","Kuarahy","☀️"], ["luna","Jasy","🌙"], ["estrella","Mbyja","⭐"],
-    ["agua","Y","💧"], ["lluvia","Ama","🌧️"], ["fuego","Tata","🔥"],
-    ["flor","Yvoty","🌸"], ["árbol","Yvyra","🌳"]
-  ],
-  numeros: [
-    ["uno","Peteĩ","1️⃣"], ["dos","Mokõi","2️⃣"], ["tres","Mbohapy","3️⃣"],
-    ["cuatro","Irundy","4️⃣"], ["cinco","Po","5️⃣"]
-  ],
-  colores: [
-    ["rojo","Pytã","🔴"], ["blanco","Morotĩ","⚪"], ["negro","Hũ","⚫"],
-    ["verde","Hovyũ","🟢"], ["amarillo","Sa'yju","🟡"]
-  ],
-  gente: [
-    ["niño","Mitã","🧒"], ["amigo","Angirũ","🤝"], ["mamá","Sy","👩"],
-    ["casa","Óga","🏡"], ["escuela","Mbo'ehao","🏫"], ["comida","Tembi'u","🍲"]
-  ]
-};
-const PREGUNTAS_POR_RONDA = 5, PARA_GANAR = 4, INACTIVIDAD_MS = 45000;
+    <script>
+      /* ===== Palabras: [español, guaraní, emoji, pregunta personalizada opcional] ===== */
+      const DATA = {
+        saludos: [
+          ["gracias", "Aguyje", "🙏"],
+          [
+            "¿cómo estás?",
+            "Mba'éichapa",
+            "👋",
+            "¿Cómo se pregunta <em>«¿cómo estás?»</em> en guaraní?",
+          ],
+          ["nos vemos", "Jajotopata", "🤗"],
+          ["bienvenido", "Tereguahẽporãite", "🎉"],
+          ["sí", "Heẽ", "👍"],
+          ["no", "Nahániri", "👎"],
+          ["muy bien", "Iporãite", "🌟"],
+        ],
+        animales: [
+          ["perro", "Jagua", "🐕"],
+          ["gato", "Mbarakaja", "🐈"],
+          ["pájaro", "Guyra", "🐦"],
+          ["jaguar", "Jaguarete", "🐆"],
+          ["mono", "Ka'i", "🐒"],
+          ["caballo", "Kavaju", "🐎"],
+        ],
+        naturaleza: [
+          ["sol", "Kuarahy", "☀️"],
+          ["luna", "Jasy", "🌙"],
+          ["estrella", "Mbyja", "⭐"],
+          ["agua", "Y", "💧"],
+          ["lluvia", "Ama", "🌧️"],
+          ["fuego", "Tata", "🔥"],
+          ["flor", "Yvoty", "🌸"],
+          ["árbol", "Yvyra", "🌳"],
+        ],
+        numeros: [
+          ["uno", "Peteĩ", "1️⃣"],
+          ["dos", "Mokõi", "2️⃣"],
+          ["tres", "Mbohapy", "3️⃣"],
+          ["cuatro", "Irundy", "4️⃣"],
+          ["cinco", "Po", "5️⃣"],
+        ],
+        colores: [
+          ["rojo", "Pytã", "🔴"],
+          ["blanco", "Morotĩ", "⚪"],
+          ["negro", "Hũ", "⚫"],
+          ["verde", "Hovyũ", "🟢"],
+          ["amarillo", "Sa'yju", "🟡"],
+        ],
+        gente: [
+          ["niño", "Mitã", "🧒"],
+          ["amigo", "Angirũ", "🤝"],
+          ["mamá", "Sy", "👩"],
+          ["casa", "Óga", "🏡"],
+          ["escuela", "Mbo'ehao", "🏫"],
+          ["comida", "Tembi'u", "🍲"],
+        ],
+      };
+      const PREGUNTAS_POR_RONDA = 5,
+        PARA_GANAR = 4,
+        INACTIVIDAD_MS = 45000;
 
-/* ===== Utilidades ===== */
-const $ = id => document.getElementById(id);
-const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
-function show(id){ document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id)); }
+      /* ===== Utilidades ===== */
+      const $ = (id) => document.getElementById(id);
+      const shuffle = (a) => {
+        a = a.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = (Math.random() * (i + 1)) | 0;
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      };
+      function show(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.toggle("on", s.id === id));
+      }
 
-/* ===== Ñandutí (encaje paraguayo) dibujado en SVG ===== */
-function nanduti(svg){
-  const c = 200, cols = ['#FFFFFF','#F4C132','#E8457A','#7FD6CB'];
-  let s = '';
-  for (let i = 0; i < 48; i++){ const a = i/48*Math.PI*2;
-    s += `<line x1="${c}" y1="${c}" x2="${c+Math.cos(a)*192}" y2="${c+Math.sin(a)*192}" stroke="rgba(255,255,255,.28)" stroke-width="1"/>`; }
-  [[.2,8],[.34,12],[.5,16],[.66,24],[.8,32],[.95,48]].forEach(([rf,n],k) => {
-    const r = rf*c; let d = '';
-    for (let i = 0; i <= n; i++){
-      const a = i/n*Math.PI*2, x = c+Math.cos(a)*r, y = c+Math.sin(a)*r;
-      if (!i) { d += `M${x.toFixed(1)},${y.toFixed(1)}`; continue; }
-      const am = (i-.5)/n*Math.PI*2, rm = r*(k%2 ? .84 : 1.14);
-      d += ` Q${(c+Math.cos(am)*rm).toFixed(1)},${(c+Math.sin(am)*rm).toFixed(1)} ${x.toFixed(1)},${y.toFixed(1)}`;
-    }
-    s += `<path d="${d}" fill="none" stroke="${cols[k%4]}" stroke-width="${k===5?2:3}" stroke-linejoin="round"/>`;
-  });
-  for (let i = 0; i < 12; i++) s += `<ellipse cx="${c}" cy="${c-.43*c}" rx="9" ry="20" fill="#E8457A" opacity=".9" transform="rotate(${i*30} ${c} ${c})"/>`;
-  for (let i = 0; i < 24; i++) s += `<circle cx="${c}" cy="${c-.73*c}" r="5" fill="#F4C132" transform="rotate(${i*15} ${c} ${c})"/>`;
-  for (let i = 0; i < 6; i++) s += `<ellipse cx="${c}" cy="${c-.11*c}" rx="7" ry="15" fill="#7FD6CB" transform="rotate(${i*60} ${c} ${c})"/>`;
-  s += `<circle cx="${c}" cy="${c}" r="12" fill="#F4C132"/>`;
-  svg.innerHTML = s;
-}
-nanduti($('nanduti')); nanduti($('mini'));
+      /* ===== Ñandutí (encaje paraguayo) dibujado en SVG ===== */
+      function nanduti(svg) {
+        const c = 200,
+          cols = ["#FFFFFF", "#F4C132", "#E8457A", "#7FD6CB"];
+        let s = "";
+        for (let i = 0; i < 48; i++) {
+          const a = (i / 48) * Math.PI * 2;
+          s += `<line x1="${c}" y1="${c}" x2="${c + Math.cos(a) * 192}" y2="${c + Math.sin(a) * 192}" stroke="rgba(255,255,255,.28)" stroke-width="1"/>`;
+        }
+        [
+          [0.2, 8],
+          [0.34, 12],
+          [0.5, 16],
+          [0.66, 24],
+          [0.8, 32],
+          [0.95, 48],
+        ].forEach(([rf, n], k) => {
+          const r = rf * c;
+          let d = "";
+          for (let i = 0; i <= n; i++) {
+            const a = (i / n) * Math.PI * 2,
+              x = c + Math.cos(a) * r,
+              y = c + Math.sin(a) * r;
+            if (!i) {
+              d += `M${x.toFixed(1)},${y.toFixed(1)}`;
+              continue;
+            }
+            const am = ((i - 0.5) / n) * Math.PI * 2,
+              rm = r * (k % 2 ? 0.84 : 1.14);
+            d += ` Q${(c + Math.cos(am) * rm).toFixed(1)},${(c + Math.sin(am) * rm).toFixed(1)} ${x.toFixed(1)},${y.toFixed(1)}`;
+          }
+          s += `<path d="${d}" fill="none" stroke="${cols[k % 4]}" stroke-width="${k === 5 ? 2 : 3}" stroke-linejoin="round"/>`;
+        });
+        for (let i = 0; i < 12; i++)
+          s += `<ellipse cx="${c}" cy="${c - 0.43 * c}" rx="9" ry="20" fill="#E8457A" opacity=".9" transform="rotate(${i * 30} ${c} ${c})"/>`;
+        for (let i = 0; i < 24; i++)
+          s += `<circle cx="${c}" cy="${c - 0.73 * c}" r="5" fill="#F4C132" transform="rotate(${i * 15} ${c} ${c})"/>`;
+        for (let i = 0; i < 6; i++)
+          s += `<ellipse cx="${c}" cy="${c - 0.11 * c}" rx="7" ry="15" fill="#7FD6CB" transform="rotate(${i * 60} ${c} ${c})"/>`;
+        s += `<circle cx="${c}" cy="${c}" r="12" fill="#F4C132"/>`;
+        svg.innerHTML = s;
+      }
+      nanduti($("nanduti"));
+      nanduti($("mini"));
 
-/* ===== Sonidos (sin archivos) ===== */
-let ctx;
-function tono(notas){
-  try {
-    ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
-    let t = ctx.currentTime;
-    notas.forEach(([f,d]) => {
-      const o = ctx.createOscillator(), g = ctx.createGain();
-      o.type = 'triangle'; o.frequency.value = f;
-      g.gain.setValueAtTime(.25, t); g.gain.exponentialRampToValueAtTime(.001, t + d);
-      o.connect(g).connect(ctx.destination); o.start(t); o.stop(t + d); t += d * .8;
-    });
-  } catch(e){}
-}
-const sOk = () => tono([[660,.12],[880,.22]]);
-const sMal = () => tono([[220,.25],[180,.3]]);
-const sGana = () => tono([[523,.15],[659,.15],[784,.15],[1047,.4]]);
+      /* ===== Sonidos (sin archivos) ===== */
+      let ctx;
+      function tono(notas) {
+        try {
+          ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+          let t = ctx.currentTime;
+          notas.forEach(([f, d]) => {
+            const o = ctx.createOscillator(),
+              g = ctx.createGain();
+            o.type = "triangle";
+            o.frequency.value = f;
+            g.gain.setValueAtTime(0.25, t);
+            g.gain.exponentialRampToValueAtTime(0.001, t + d);
+            o.connect(g).connect(ctx.destination);
+            o.start(t);
+            o.stop(t + d);
+            t += d * 0.8;
+          });
+        } catch (e) {}
+      }
+      const sOk = () =>
+        tono([
+          [660, 0.12],
+          [880, 0.22],
+        ]);
+      const sMal = () =>
+        tono([
+          [220, 0.25],
+          [180, 0.3],
+        ]);
+      const sGana = () =>
+        tono([
+          [523, 0.15],
+          [659, 0.15],
+          [784, 0.15],
+          [1047, 0.4],
+        ]);
 
-/* ===== Inactividad: vuelve al inicio ===== */
-let timerInact;
-function resetInact(){
-  clearTimeout(timerInact);
-  timerInact = setTimeout(() => { if (!$('s-inicio').classList.contains('on')) irInicio(); }, INACTIVIDAD_MS);
-}
-['pointerdown','keydown'].forEach(e => document.addEventListener(e, resetInact));
+      /* ===== Inactividad: vuelve al inicio ===== */
+      let timerInact;
+      function resetInact() {
+        clearTimeout(timerInact);
+        timerInact = setTimeout(() => {
+          if (!$("s-inicio").classList.contains("on")) irInicio();
+        }, INACTIVIDAD_MS);
+      }
+      ["pointerdown", "keydown"].forEach((e) =>
+        document.addEventListener(e, resetInact),
+      );
 
-/* ===== Pantalla completa y pantalla encendida ===== */
-function pantallaCompleta(){
-  const el = document.documentElement;
-  if (!document.fullscreenElement && el.requestFullscreen) el.requestFullscreen().catch(()=>{});
-  try { navigator.wakeLock && navigator.wakeLock.request('screen').catch(()=>{}); } catch(e){}
-}
+      /* ===== Pantalla completa y pantalla encendida ===== */
+      function pantallaCompleta() {
+        const el = document.documentElement;
+        if (!document.fullscreenElement && el.requestFullscreen)
+          el.requestFullscreen().catch(() => {});
+        try {
+          navigator.wakeLock && navigator.wakeLock.request("screen").catch(() => {});
+        } catch (e) {}
+      }
 
-/* ===== Flujo ===== */
-let slide = 0, timerFinal, timerSig;
-function irInicio(){ clearTimeout(timerFinal); clearTimeout(timerSig); pararConfeti(); show('s-inicio'); }
+      /* ===== Flujo ===== */
+      let slide = 0,
+        timerFinal,
+        timerSig;
+      function irInicio() {
+        clearTimeout(timerFinal);
+        clearTimeout(timerSig);
+        pararConfeti();
+        show("s-inicio");
+      }
 
-$('s-inicio').addEventListener('click', () => { pantallaCompleta(); slide = 0; pintarSlide(); show('s-intro'); });
-function pintarSlide(){
-  document.querySelectorAll('.slide').forEach((s,i) => s.classList.toggle('on', i === slide));
-  document.querySelectorAll('#puntos i').forEach((p,i) => p.classList.toggle('on', i === slide));
-  const ultima = slide === 3;
-  $('sig').textContent = ultima ? '¡A jugar!' : 'Siguiente';
-  $('sig').classList.toggle('amarillo', ultima);
-}
-$('sig').addEventListener('click', () => { if (slide < 3) { slide++; pintarSlide(); } else empezar(); });
-$('saltar').addEventListener('click', empezar);
-$('otra').addEventListener('click', empezar);
+      $("s-inicio").addEventListener("click", () => {
+        pantallaCompleta();
+        slide = 0;
+        pintarSlide();
+        show("s-intro");
+      });
+      function pintarSlide() {
+        document
+          .querySelectorAll(".slide")
+          .forEach((s, i) => s.classList.toggle("on", i === slide));
+        document
+          .querySelectorAll("#puntos i")
+          .forEach((p, i) => p.classList.toggle("on", i === slide));
+        const ultima = slide === 3;
+        $("sig").textContent = ultima ? "¡A jugar!" : "Siguiente";
+        $("sig").classList.toggle("amarillo", ultima);
+      }
+      $("sig").addEventListener("click", () => {
+        if (slide < 3) {
+          slide++;
+          pintarSlide();
+        } else empezar();
+      });
+      $("saltar").addEventListener("click", empezar);
+      $("otra").addEventListener("click", empezar);
 
-/* ===== Quiz ===== */
-let ronda = [], idx = 0, aciertos = 0, bloqueado = false;
-function armarRonda(){
-  const todas = [];
-  for (const cat in DATA) DATA[cat].forEach(it => todas.push({cat, es:it[0], gn:it[1], emoji:it[2], q:it[3]}));
-  // máximo 2 preguntas por categoría para variar
-  const cuenta = {}, sel = [];
-  for (const it of shuffle(todas)) {
-    if ((cuenta[it.cat]||0) >= 2) continue;
-    cuenta[it.cat] = (cuenta[it.cat]||0) + 1; sel.push(it);
-    if (sel.length === PREGUNTAS_POR_RONDA) break;
-  }
-  return sel;
-}
-function opcionesPara(it){
-  let mismas = DATA[it.cat].map(x => x[1]).filter(g => g !== it.gn);
-  let otras = [];
-  for (const cat in DATA) if (cat !== it.cat) DATA[cat].forEach(x => otras.push(x[1]));
-  const distract = shuffle(mismas).slice(0,3);
-  while (distract.length < 3) { const o = shuffle(otras)[0]; if (!distract.includes(o)) distract.push(o); }
-  return shuffle([it.gn, ...distract]);
-}
-function empezar(){
-  pantallaCompleta(); pararConfeti(); clearTimeout(timerFinal);
-  ronda = armarRonda(); idx = 0; aciertos = 0;
-  $('bar').innerHTML = ronda.map(() => '<i></i>').join('');
-  show('s-quiz'); pintarPregunta();
-}
-function pintarPregunta(){
-  bloqueado = false;
-  const it = ronda[idx];
-  $('num').textContent = `Pregunta ${idx+1} de ${ronda.length}`;
-  $('bar').children[idx].classList.add('act');
-  $('emoji').textContent = it.emoji;
-  $('q').innerHTML = it.q || `¿Cómo se dice <em>«${it.es}»</em> en guaraní?`;
-  $('feedback').textContent = '';
-  $('opciones').innerHTML = '';
-  opcionesPara(it).forEach(op => {
-    const b = document.createElement('button');
-    b.className = 'op'; b.textContent = op;
-    b.addEventListener('click', () => responder(b, op));
-    $('opciones').appendChild(b);
-  });
-}
-function responder(btn, op){
-  if (bloqueado) return; bloqueado = true;
-  const it = ronda[idx], bien = op === it.gn, marca = $('bar').children[idx];
-  marca.classList.remove('act');
-  [...$('opciones').children].forEach(b => {
-    if (b.textContent === it.gn) b.classList.add('ok');
-    else if (b !== btn) b.classList.add('apagado');
-  });
-  if (bien) { aciertos++; sOk(); marca.classList.add('ok'); $('feedback').textContent = `✔ ¡Correcto! ${it.gn} = ${it.es}`; }
-  else { sMal(); btn.classList.add('mal'); marca.classList.add('mal'); $('feedback').textContent = `${it.gn} = ${it.es}`; }
-  timerSig = setTimeout(() => { idx++; idx < ronda.length ? pintarPregunta() : final(); }, bien ? 1500 : 2300);
-}
-function final(){
-  const gano = aciertos >= PARA_GANAR;
-  if (aciertos === ronda.length) { $('f-titulo').textContent = "¡Nde katupyry!"; $('f-trad').textContent = "¡Sos un genio del guaraní!"; }
-  else if (gano) { $('f-titulo').textContent = "¡Iporãite!"; $('f-trad').textContent = "¡Muy bien!"; }
-  else { $('f-titulo').textContent = "¡Eha'ã jey!"; $('f-trad').textContent = "¡Intentá de nuevo!"; }
-  $('f-score').textContent = `Acertaste ${aciertos} de ${ronda.length}`;
-  $('f-premio').style.display = gano ? '' : 'none';
-  show('s-final');
-  if (gano) { sGana(); confeti(); }
-  timerFinal = setTimeout(irInicio, 25000);
-}
+      /* ===== Quiz ===== */
+      let ronda = [],
+        idx = 0,
+        aciertos = 0,
+        bloqueado = false;
+      function armarRonda() {
+        const todas = [];
+        for (const cat in DATA)
+          DATA[cat].forEach((it) =>
+            todas.push({ cat, es: it[0], gn: it[1], emoji: it[2], q: it[3] }),
+          );
+        // máximo 2 preguntas por categoría para variar
+        const cuenta = {},
+          sel = [];
+        for (const it of shuffle(todas)) {
+          if ((cuenta[it.cat] || 0) >= 2) continue;
+          cuenta[it.cat] = (cuenta[it.cat] || 0) + 1;
+          sel.push(it);
+          if (sel.length === PREGUNTAS_POR_RONDA) break;
+        }
+        return sel;
+      }
+      function opcionesPara(it) {
+        let mismas = DATA[it.cat].map((x) => x[1]).filter((g) => g !== it.gn);
+        let otras = [];
+        for (const cat in DATA)
+          if (cat !== it.cat) DATA[cat].forEach((x) => otras.push(x[1]));
+        const distract = shuffle(mismas).slice(0, 3);
+        while (distract.length < 3) {
+          const o = shuffle(otras)[0];
+          if (!distract.includes(o)) distract.push(o);
+        }
+        return shuffle([it.gn, ...distract]);
+      }
+      function empezar() {
+        pantallaCompleta();
+        pararConfeti();
+        clearTimeout(timerFinal);
+        ronda = armarRonda();
+        idx = 0;
+        aciertos = 0;
+        $("bar").innerHTML = ronda.map(() => "<i></i>").join("");
+        show("s-quiz");
+        pintarPregunta();
+      }
+      function pintarPregunta() {
+        bloqueado = false;
+        const it = ronda[idx];
+        $("num").textContent = `Pregunta ${idx + 1} de ${ronda.length}`;
+        $("bar").children[idx].classList.add("act");
+        $("emoji").textContent = it.emoji;
+        $("q").innerHTML = it.q || `¿Cómo se dice <em>«${it.es}»</em> en guaraní?`;
+        $("feedback").textContent = "";
+        $("opciones").innerHTML = "";
+        opcionesPara(it).forEach((op) => {
+          const b = document.createElement("button");
+          b.className = "op";
+          b.textContent = op;
+          b.addEventListener("click", () => responder(b, op));
+          $("opciones").appendChild(b);
+        });
+      }
+      function responder(btn, op) {
+        if (bloqueado) return;
+        bloqueado = true;
+        const it = ronda[idx],
+          bien = op === it.gn,
+          marca = $("bar").children[idx];
+        marca.classList.remove("act");
+        [...$("opciones").children].forEach((b) => {
+          if (b.textContent === it.gn) b.classList.add("ok");
+          else if (b !== btn) b.classList.add("apagado");
+        });
+        if (bien) {
+          aciertos++;
+          sOk();
+          marca.classList.add("ok");
+          $("feedback").textContent = `✔ ¡Correcto! ${it.gn} = ${it.es}`;
+        } else {
+          sMal();
+          btn.classList.add("mal");
+          marca.classList.add("mal");
+          $("feedback").textContent = `${it.gn} = ${it.es}`;
+        }
+        timerSig = setTimeout(
+          () => {
+            idx++;
+            idx < ronda.length ? pintarPregunta() : final();
+          },
+          bien ? 1500 : 2300,
+        );
+      }
+      function final() {
+        const gano = aciertos >= PARA_GANAR;
+        if (aciertos === ronda.length) {
+          $("f-titulo").textContent = "¡Nde katupyry!";
+          $("f-trad").textContent = "¡Sos un genio del guaraní!";
+        } else if (gano) {
+          $("f-titulo").textContent = "¡Iporãite!";
+          $("f-trad").textContent = "¡Muy bien!";
+        } else {
+          $("f-titulo").textContent = "¡Eha'ã jey!";
+          $("f-trad").textContent = "¡Intentá de nuevo!";
+        }
+        $("f-score").textContent = `Acertaste ${aciertos} de ${ronda.length}`;
+        $("f-premio").style.display = gano ? "" : "none";
+        show("s-final");
+        if (gano) {
+          sGana();
+          confeti();
+        }
+        timerFinal = setTimeout(irInicio, 25000);
+      }
 
-/* ===== Confeti ===== */
-let rafConf;
-function confeti(){
-  const cv = $('conf'), g = cv.getContext('2d');
-  cv.width = innerWidth; cv.height = innerHeight;
-  const cols = ['#F4C132','#E8457A','#7FD6CB','#FFFFFF','#D52B1E','#0038A8'];
-  const ps = Array.from({length:160}, () => ({ x:Math.random()*cv.width, y:-20-Math.random()*cv.height*.6,
-    vx:(Math.random()-.5)*3, vy:2+Math.random()*4, r:Math.random()*6.28, vr:(Math.random()-.5)*.3,
-    w:8+Math.random()*8, h:5+Math.random()*6, c:cols[Math.random()*cols.length|0] }));
-  const fin = performance.now() + 4500;
-  (function paso(t){
-    g.clearRect(0,0,cv.width,cv.height);
-    ps.forEach(p => { p.x += p.vx; p.y += p.vy; p.r += p.vr;
-      g.save(); g.translate(p.x,p.y); g.rotate(p.r); g.fillStyle = p.c; g.fillRect(-p.w/2,-p.h/2,p.w,p.h); g.restore(); });
-    if (t < fin) rafConf = requestAnimationFrame(paso); else g.clearRect(0,0,cv.width,cv.height);
-  })(performance.now());
-}
-function pararConfeti(){ cancelAnimationFrame(rafConf); const cv = $('conf'); cv.getContext('2d').clearRect(0,0,cv.width,cv.height); }
+      /* ===== Confeti ===== */
+      let rafConf;
+      function confeti() {
+        const cv = $("conf"),
+          g = cv.getContext("2d");
+        cv.width = innerWidth;
+        cv.height = innerHeight;
+        const cols = [
+          "#F4C132",
+          "#E8457A",
+          "#7FD6CB",
+          "#FFFFFF",
+          "#D52B1E",
+          "#0038A8",
+        ];
+        const ps = Array.from({ length: 160 }, () => ({
+          x: Math.random() * cv.width,
+          y: -20 - Math.random() * cv.height * 0.6,
+          vx: (Math.random() - 0.5) * 3,
+          vy: 2 + Math.random() * 4,
+          r: Math.random() * 6.28,
+          vr: (Math.random() - 0.5) * 0.3,
+          w: 8 + Math.random() * 8,
+          h: 5 + Math.random() * 6,
+          c: cols[(Math.random() * cols.length) | 0],
+        }));
+        const fin = performance.now() + 4500;
+        (function paso(t) {
+          g.clearRect(0, 0, cv.width, cv.height);
+          ps.forEach((p) => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.r += p.vr;
+            g.save();
+            g.translate(p.x, p.y);
+            g.rotate(p.r);
+            g.fillStyle = p.c;
+            g.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            g.restore();
+          });
+          if (t < fin) rafConf = requestAnimationFrame(paso);
+          else g.clearRect(0, 0, cv.width, cv.height);
+        })(performance.now());
+      }
+      function pararConfeti() {
+        cancelAnimationFrame(rafConf);
+        const cv = $("conf");
+        cv.getContext("2d").clearRect(0, 0, cv.width, cv.height);
+      }
 
-// Evita el menú de "mantener presionado" en el tablet
-document.addEventListener('contextmenu', e => e.preventDefault());
-</script>
-</body>
+      // Evita el menú de "mantener presionado" en el tablet
+      document.addEventListener("contextmenu", (e) => e.preventDefault());
+    </script>
+  </body>
 </html>
