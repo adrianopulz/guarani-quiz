@@ -6,6 +6,8 @@
     <meta name="theme-color" content="#0E5E52">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="images/icon-192.png">
+    <link rel="apple-touch-icon" href="images/icon-192.png">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Ñañe'ẽ guaraníme</title>
     <style>
@@ -183,6 +185,31 @@
         padding: 10px 14px;
         text-decoration: underline;
       }
+      .cerrar {
+        position: fixed;
+        top: calc(env(safe-area-inset-top, 0px) + 16px);
+        left: 20px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        font-size: 1.5rem;
+        line-height: 1;
+        opacity: 0.6;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.2s, background 0.2s;
+        z-index: 5;
+      }
+      .cerrar:hover {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .cerrar.on {
+        display: flex;
+      }
 
       /* Quiz */
       #s-quiz {
@@ -343,15 +370,16 @@
   <body>
 
     <!-- INICIO -->
-    <section class="screen on" id="s-inicio" role="button" aria-label="Tocá para jugar">
+    <section class="screen on" id="s-inicio">
       <svg id="nanduti" viewBox="0 0 400 400" aria-hidden="true"></svg>
       <h1>Ñañe'ẽ guaraníme</h1>
       <p class="sub">¡Hablemos en guaraní!</p>
-      <div class="toca">Tocá para jugar</div>
+      <button class="toca" id="jugar">Tocá para jugar</button>
     </section>
 
     <!-- INTRO -->
     <section class="screen" id="s-intro">
+      <button class="cerrar on" id="cerrar" aria-label="Volver al inicio">×</button>
       <button class="saltar" id="saltar">Ir al juego</button>
       <div class="slide on">
         <div class="big">🇵🇾</div>
@@ -379,6 +407,7 @@
 
     <!-- QUIZ -->
     <section class="screen" id="s-quiz">
+      <button class="cerrar on" id="cerrar2" aria-label="Volver al inicio">×</button>
       <div class="progreso"><span id="num">Pregunta 1 de 5</span><div class="bar" id="bar"></div></div>
       <div class="pregunta">
         <div class="emoji" id="emoji">🐕</div>
@@ -390,12 +419,14 @@
 
     <!-- FINAL -->
     <section class="screen" id="s-final">
+      <button class="cerrar on" id="cerrar3" aria-label="Volver al inicio">×</button>
       <svg id="mini" viewBox="0 0 400 400" aria-hidden="true"></svg>
       <div class="titulo" id="f-titulo"></div>
       <div class="trad" id="f-trad"></div>
       <div class="score" id="f-score"></div>
       <div class="premio" id="f-premio">🎁 ¡Ganaste un premio!<small>Pedíselo a la expositora</small></div>
       <button class="btn amarillo" id="otra">Jugar otra vez</button>
+      <button class="btn" id="volver">Volver al inicio</button>
     </section>
 
     <canvas id="conf"></canvas>
@@ -594,7 +625,7 @@
         show("s-inicio");
       }
 
-      $("s-inicio").addEventListener("click", () => {
+      $("jugar").addEventListener("click", () => {
         pantallaCompleta();
         slide = 0;
         pintarSlide();
@@ -618,7 +649,11 @@
         } else empezar();
       });
       $("saltar").addEventListener("click", empezar);
+      $("cerrar").addEventListener("click", irInicio);
+      $("cerrar2").addEventListener("click", irInicio);
+      $("cerrar3").addEventListener("click", irInicio);
       $("otra").addEventListener("click", empezar);
+      $("volver").addEventListener("click", irInicio);
 
       /* ===== Quiz ===== */
       let ronda = [],
@@ -731,7 +766,7 @@
           sGana();
           confeti();
         }
-        timerFinal = setTimeout(irInicio, 25000);
+        timerFinal = setTimeout(irInicio, 10000);
       }
 
       /* ===== Confeti ===== */
@@ -786,6 +821,10 @@
 
       // Evita el menú de "mantener presionado" en el tablet
       document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+      // Service worker: permite jugar sin internet
+      if ("serviceWorker" in navigator)
+        navigator.serviceWorker.register("sw.js").catch(() => {});
     </script>
   </body>
 </html>

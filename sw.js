@@ -1,8 +1,12 @@
-const CACHE_NAME = 'guarani-quiz-v1';
+// Cambiar la versión cada vez que se modifique el juego
+const CACHE_NAME = 'guarani-quiz-v2';
 const ASSETS = [
   './',
   './index.html',
-  './manifest.json'
+  './manifest.json',
+  './images/icon-192.png',
+  './images/icon-512.png',
+  './images/icon-maskable-512.png'
 ];
 
 self.addEventListener('install', (event) => {
