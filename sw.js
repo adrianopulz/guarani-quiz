@@ -1,5 +1,5 @@
 // Cambiar la versión cada vez que se modifique el juego
-const CACHE_NAME = 'guarani-quiz-v3';
+const CACHE_NAME = 'guarani-quiz-v4';
 const ASSETS = [
   './',
   './index.html',

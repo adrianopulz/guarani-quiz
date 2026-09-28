@@ -28,9 +28,14 @@
         padding: 0;
         -webkit-tap-highlight-color: transparent;
       }
-      html,
+      /* iPhone (PWA): el viewport no incluye la barra de estado y queda
+         una franja sin pintar abajo; el fondo del html la cubre */
+      html {
+        background: var(--monte-osc);
+        min-height: calc(100% + env(safe-area-inset-top, 0px));
+      }
       body {
-        height: 100%;
+        min-height: 100%;
       }
       body {
         font-family:
